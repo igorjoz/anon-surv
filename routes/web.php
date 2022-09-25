@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,19 +17,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// * create Auth routes - login, registration, etc.
 Auth::routes();
 
-Route::get('/', [HomeController::class, 'index'])
-    ->name('home.index');
+// * only authenticated users can access routes other than Auth routes
+Route::middleware(['auth'])->group(function () {
+    Route::group(['middleware' => ['can:delete users']], function () {
+        Route::resource('user', UserController::class);
+    });
 
-Route::resource('survey', SurveyController::class, [
-    // 'only' => ['index', 'show',]
-]);
+    Route::get('/', [HomeController::class, 'index'])
+        ->name('home.index');
 
-Route::resource('user', UserController::class, [
-    // 'only' => ['index', 'show',]
-]);
+    Route::get('pokaz-konto', [UserController::class, 'showAccount'])
+        ->name('user.show_account');
+    Route::get('edytuj-konto', [UserController::class, 'editAccount'])
+        ->name('user.edit_account');
+    Route::put('edytuj-konto', [UserController::class, 'updateAccount'])
+        ->name('user.update_account');
 
-Route::get('admin', function () {
-    return view('admin');
+    Route::resource('survey', SurveyController::class, [
+        // 'only' => ['index', 'show']
+    ]);
 });

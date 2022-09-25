@@ -18,20 +18,20 @@
 
         <h2>
             <a href="{{ route('user.edit_account') }}">
-                Edytuj swoje dane
+                Edytuj dane swojego konta
             </a>
         </h2>
 
         @if (Auth::user()->hasRole('admin'))
         <h2>
-            <a href="{{ route('user.create') }}">
-                Stwórz nowego użytkownika
+            <a href="{{ route('user.index') }}">
+                Wyświetl listę użytkowników serwisu
             </a>
         </h2>
 
         <h2>
-            <a href="{{ route('department.create') }}">
-                Stwórz nowy dział
+            <a href="{{ route('survey.index') }}">
+                Wyświetl listę wszystkich ankiet
             </a>
         </h2>
         @endif

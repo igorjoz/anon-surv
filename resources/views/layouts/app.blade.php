@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <title>{{ config('app.name') }}</title>
@@ -32,7 +32,7 @@
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                     <img src="{{ Storage::url(Auth::user()->image_path) }}"
                          class="user-image img-circle elevation-2" alt="User Image">
-                    <span class="d-none d-md-inline">{{ Auth::user()->name }} {{ Auth::user()->surname }}</span>
+                    <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
                 </a>
 
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
@@ -44,8 +44,8 @@
                             alt="User Image">
 
                             <p>
-                                <a href="{{ route('user.show', Auth::user()->id) }}" class="panel__link panel__link--white">
-                                {{ Auth::user()->name }} {{ Auth::user()->surname }}
+                                <a href="{{ route('user.show_account') }}" class="panel__link panel__link--white">
+                                {{ Auth::user()->name }}
                                 </a>
                                 <small>
                                     Użytkownik serwisu od {{ Auth::user()->created_at->format('M. Y') }}
@@ -55,7 +55,7 @@
 
                     <!-- Menu Footer-->
                     <li class="user-footer">
-                        <a href="{{ route('user.show', Auth::user()->id) }}" class="btn btn-default btn-flat">Profil</a>
+                        <a href="{{ route('user.show_account') }}" class="btn btn-default btn-flat">Profil</a>
 
                         <a href="#" class="btn btn-default btn-flat float-right"
                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -80,7 +80,7 @@
 
     <!-- Main Footer -->
     <footer class="main-footer">        
-        <strong>Copyright &copy; 2022 <a href="igorjozefowicz.com">EmployeesDir</a>.</strong> All rights
+        <strong>Copyright &copy; 2022 <a href="igorjozefowicz.com">AnonSurv</a>.</strong> All rights
         reserved.
     </footer>
 </div>
