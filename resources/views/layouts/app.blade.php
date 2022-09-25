@@ -1,83 +1,94 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>{{ config('app.name') }}</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'AnonSurv') }}</title>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
-    <!-- Scripts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
           integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
           crossorigin="anonymous"/>
+
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+
+    @stack('third_party_stylesheets')
+
+    @stack('page_css')
 </head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+    <!-- Main Header -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown user-menu">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                    <img src="{{ Storage::url(Auth::user()->image_path) }}"
+                         class="user-image img-circle elevation-2" alt="User Image">
+                    <span class="d-none d-md-inline">{{ Auth::user()->name }} {{ Auth::user()->surname }}</span>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
+                <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 
-                    </ul>
+                    <!-- User image -->
+                    <li class="user-header bg-primary">
+                        <img src="{{ Storage::url(Auth::user()->image_path) }}"
+                            class="img-circle elevation-2"
+                            alt="User Image">
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                            <p>
+                                <a href="{{ route('user.show', Auth::user()->id) }}" class="panel__link panel__link--white">
+                                {{ Auth::user()->name }} {{ Auth::user()->surname }}
                                 </a>
+                                <small>
+                                    Użytkownik serwisu od {{ Auth::user()->created_at->format('M. Y') }}
+                                </small>
+                            </p>
+                    </li>
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+                    <!-- Menu Footer-->
+                    <li class="user-footer">
+                        <a href="{{ route('user.show', Auth::user()->id) }}" class="btn btn-default btn-flat">Profil</a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
+                        <a href="#" class="btn btn-default btn-flat float-right"
+                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Wyloguj się
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+    <!-- Left side column. contains the logo and sidebar -->
+@include('layouts.sidebar')
+
+<!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        @yield('content')
     </div>
+
+    <!-- Main Footer -->
+    <footer class="main-footer">        
+        <strong>Copyright &copy; 2022 <a href="igorjozefowicz.com">EmployeesDir</a>.</strong> All rights
+        reserved.
+    </footer>
+</div>
+
+<script src="{{ mix('js/app.js') }}"></script>
+
+@stack('third_party_scripts')
+
+@stack('page_scripts')
 </body>
 </html>
