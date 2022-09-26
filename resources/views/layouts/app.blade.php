@@ -44,7 +44,7 @@
                             alt="User Image">
 
                             <p>
-                                <a href="{{ route('user.show_account') }}" class="panel__link panel__link--white">
+                                <a href="{{ route('home.index') }}" class="panel__link panel__link--white">
                                 {{ Auth::user()->name }}
                                 </a>
                                 <small>
@@ -55,7 +55,7 @@
 
                     <!-- Menu Footer-->
                     <li class="user-footer">
-                        <a href="{{ route('user.show_account') }}" class="btn btn-default btn-flat">Profil</a>
+                        <a href="{{ route('home.index') }}" class="btn btn-default btn-flat">Profil</a>
 
                         <a href="#" class="btn btn-default btn-flat float-right"
                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -80,7 +80,7 @@
 
     <!-- Main Footer -->
     <footer class="main-footer">        
-        <strong>Copyright &copy; 2022 <a href="igorjozefowicz.com">AnonSurv</a>.</strong> All rights
+        <strong>Copyright &copy; 2022 <a href="https://igorjozefowicz.com">AnonSurv</a>.</strong> All rights
         reserved.
     </footer>
 </div>

@@ -6,9 +6,7 @@
         <h1 class="text-black panel__welcome-header">
             Zalogowano jako 
             <img src="{{ Storage::url($user->image_path) }}" class="panel__user-image" alt="user image">
-                <a href="{{ route('user.show', $user->id) }}">
-                    <b>{{ $user->name }} {{ $user->surname }}</b>
-                </a>
+                <b>{{ $user->name }} {{ $user->surname }}</b>
             o id: <b>{{ $user->id }}</b>
         </h1>
 
@@ -22,6 +20,18 @@
             </a>
         </h2>
 
+        <h2>
+            <a href="{{ route('survey.create') }}">
+                Stwórz nową ankietę
+            </a>
+        </h2>
+
+        <h2>
+            <a href="{{ route('survey.index_user_surveys') }}">
+                Wyświetl listę twoich ankiet
+            </a>
+        </h2>
+
         @if (Auth::user()->hasRole('admin'))
         <h2>
             <a href="{{ route('user.index') }}">
@@ -31,7 +41,7 @@
 
         <h2>
             <a href="{{ route('survey.index') }}">
-                Wyświetl listę wszystkich ankiet
+                Wyświetl listę ankiet wszystkich użytkowników
             </a>
         </h2>
         @endif
