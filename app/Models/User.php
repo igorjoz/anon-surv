@@ -3,15 +3,17 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Kyslik\ColumnSortable\Sortable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, Sortable;
 
     /**
      * The attributes that are mass assignable.
@@ -21,7 +23,15 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'image_path',
         'password',
+    ];
+
+    public $sortable = [
+        'id',
+        'name',
+        'email',
+        'created_at',
     ];
 
     /**
@@ -49,5 +59,13 @@ class User extends Authenticatable
     public function surveys()
     {
         return $this->hasMany(Survey::class);
+    }
+
+    /**
+     * Get the surveys completed by user.
+     */
+    public function completedSurveys()
+    {
+        return $this->hasMany(CompletedSurvey::class);
     }
 }
