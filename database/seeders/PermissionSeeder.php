@@ -20,14 +20,16 @@ class PermissionSeeder extends Seeder
         // * reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // * create permissions - users & departments
+        // * create permissions
         Permission::create(['name' => 'edit users']);
         Permission::create(['name' => 'delete users']);
+        Permission::create(['name' => 'index users']);
 
         // * create roles and assign existing permissions
         $userRole = Role::create(['name' => 'user']);
 
         $adminRole = Role::create(['name' => 'admin']);
+        $adminRole->givePermissionTo('index users');
         $adminRole->givePermissionTo('edit users');
         $adminRole->givePermissionTo('delete users');
 
