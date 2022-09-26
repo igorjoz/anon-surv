@@ -29,8 +29,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])
         ->name('home.index');
 
-    Route::get('pokaz-konto', [UserController::class, 'showAccount'])
-        ->name('user.show_account');
     Route::get('edytuj-konto', [UserController::class, 'editAccount'])
         ->name('user.edit_account');
     Route::put('edytuj-konto', [UserController::class, 'updateAccount'])
@@ -39,4 +37,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('survey', SurveyController::class, [
         // 'only' => ['index', 'show']
     ]);
+    Route::get('wyswietl-ankiety', [SurveyController::class, 'indexUserSurveys'])
+        ->name('survey.index_user_surveys');
 });

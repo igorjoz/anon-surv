@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('title');
             $table->string('description');
 
+            $table->string('url_slug');
+            $table->boolean('is_published')->default(true);
+
             // * relation with User model
             $table->foreignId('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
