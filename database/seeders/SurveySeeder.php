@@ -15,8 +15,10 @@ class SurveySeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 1; $i <= 45; $i++) {
-            Survey::factory(2)
+        for ($i = 1; $i <= 52; $i++) {
+            $randomNumber = fake()->numberBetween(1, 4);
+
+            Survey::factory($randomNumber)
                 ->create([
                     'user_id' => $i,
                 ]);

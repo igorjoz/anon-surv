@@ -25,6 +25,7 @@ class UpsertSurveyRequest extends FormRequest
     {
         return [
             'title' => 'required|max:1023',
+            'url_slug' => 'required|max:1023',
             'description' => 'required|max:8191',
         ];
     }

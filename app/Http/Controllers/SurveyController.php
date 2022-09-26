@@ -6,6 +6,7 @@ use App\Models\Survey;
 use App\Http\Requests\UpsertSurveyRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 
 class SurveyController extends Controller
@@ -80,11 +81,12 @@ class SurveyController extends Controller
         $userId = Auth::user()->id;
         $validated = $request->validated();
         $validated['user_id'] = $userId;
+        $validated['url_slug'] = Str::slug($validated['url_slug']);
 
         $survey = Survey::create($validated);
 
         return redirect()->route('survey.index_user_surveys')
-            ->with('flashMessage', 'Stworzono ankietę "' . $survey->name . '"');
+            ->with('flashMessage', 'Stworzono ankietę "' . $survey->title . '"');
     }
 
     /**
