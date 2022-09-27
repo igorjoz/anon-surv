@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 
-
 class SurveyController extends Controller
 {
     /**
@@ -100,9 +99,14 @@ class SurveyController extends Controller
      */
     public function show(Survey $survey)
     {
+        $questions = Question::where('survey_id', '=', $survey->id)
+            ->with('answers')->get();
+        $completedSurveys = $survey->completedSurveys;
+
         return view('survey.show', [
             'survey' => $survey,
-            'questions' => $survey->questions,
+            'questions' => $questions,
+            'completedSurveys' => $completedSurveys,
         ]);
     }
 

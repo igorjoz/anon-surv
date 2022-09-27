@@ -47,7 +47,9 @@ class QuestionController extends Controller
 
         if ($request->question_type == 'open') {
             $validated['is_open_question'] = true;
+            $validated['is_yes_no_question'] = false;
         } else {
+            $validated['is_open_question'] = false;
             $validated['is_yes_no_question'] = true;
         }
         $validated['survey_id'] = $survey->id;
