@@ -46,8 +46,8 @@
                     </td>
 
                     <td class="table__cell table__cell--important">
-                        <a href="{{ route('survey.show', $survey->id) }}">
-                            {{ $survey->url_slug }}
+                        <a href="{{ URL::to('/ankiety/' . $survey->id . "-" . $survey->url_slug) }}">
+                            {{ URL::to('/ankiety/' . $survey->id . "-" . $survey->url_slug) }}
                         </a>
                     </td>
 

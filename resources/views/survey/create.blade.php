@@ -92,7 +92,7 @@
                   Error: {{ $message }}
                 </span>
                 @enderror
-              </div>
+            </div>
             
             <button type="submit" class="button button__submit button__submit--create">
                 Stwórz nową ankietę

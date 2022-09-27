@@ -19,9 +19,11 @@
                 <tr>
                     <th scope="col" class="table__header">@sortablelink('id', 'ID')</th>
                     <th scope="col" class="table__header">@sortablelink('title', 'Tytuł')</th>
-                    <th scope="col" class="table__header">URL slug</th>
+                    <th scope="col" class="table__header">Link do ankiety</th>
                     <th scope="col" class="table__header">@sortablelink('description', 'Opis')</th>
                     <th scope="col" class="table__header">@sortablelink('is_published', 'Czy opublikowana')</th>
+                    <th scope="col" class="table__header">Ilość pytań</th>
+                    <th scope="col" class="table__header">Ilość odesłanych ankiet</th>
                     <th scope="col" class="table__header">@sortablelink('created_at', 'Data stworzenia')</th>
                     <th scope="col" class="table__header">Akcje</th>
                 </tr>
@@ -46,8 +48,8 @@
                     </td>
 
                     <td class="table__cell table__cell--important">
-                        <a href="{{ route('survey.show', $survey->id) }}">
-                            {{ $survey->url_slug }}
+                        <a href="{{ URL::to('/ankiety/' . $survey->id . "-" . $survey->url_slug) }}">
+                            {{ URL::to('/ankiety/' . $survey->id . "-" . $survey->url_slug) }}
                         </a>
                     </td>
 
@@ -56,7 +58,15 @@
                     </td>
 
                     <td class="table__cell">
-                        {{ $survey->is_published }}
+                        {{ $survey->is_published ? "tak" : "nie" }}
+                    </td>
+
+                    <td class="table__cell">
+                        {{ $survey->questions->count() }}
+                    </td>
+
+                    <td class="table__cell">
+                        {{ $survey->completedSurveys->count() }}
                     </td>
     
                     <td class="table__cell">
