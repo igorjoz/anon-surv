@@ -4,7 +4,7 @@
     <div class="container-fluid panel__text-container">
 
         <h1 class="text-black panel__welcome-header">
-            Dodawanie pytania do ankiety "{{ $survey->title }}"
+            Dodawanie pytania do ankiety "{{ $survey->title }}" o id: {{ $survey->id }}
         </h1>
 
         <form method="POST" enctype="multipart/form-data" action="{{ route('question.store') }}" class="crud__form">
@@ -63,7 +63,7 @@
 
         <hr>
 
-        <a href="{{ route('home.index') }}">Wróć do panelu</a>
+        <a href="{{ route('home.index') }}" class="panel__important-link">Wróć do panelu</a>
 
     </div>
 @endsection

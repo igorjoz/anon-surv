@@ -146,6 +146,7 @@ return [
     // ENV
     'user_password' => env('USER_PASSWORD'),
     'admin_password' => env('ADMIN_PASSWORD'),
+    'seeder_user_amount' => env('SEEDER_USERS_AMOUNT'),
 
     /*
     |--------------------------------------------------------------------------

@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             UserSeeder::class,
             SurveySeeder::class,
+            QuestionSeeder::class,
         ]);
     }
 }
