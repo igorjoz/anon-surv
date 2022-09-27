@@ -19,6 +19,7 @@ class Survey extends Model
         'title',
         'url_slug',
         'description',
+        'is_published',
         'user_id',
     ];
 

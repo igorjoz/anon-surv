@@ -7,6 +7,7 @@ use App\Http\Requests\UpsertSurveyRequest;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 
 
@@ -83,6 +84,7 @@ class SurveyController extends Controller
         $validated = $request->validated();
         $validated['user_id'] = $userId;
         $validated['url_slug'] = Str::slug($validated['url_slug']);
+        $validated['is_published'] = ($validated['is_published'] === 'true');
 
         $survey = Survey::create($validated);
 
@@ -98,9 +100,12 @@ class SurveyController extends Controller
      */
     public function show(Survey $survey)
     {
+        $linkForUsers = URL::to('/ankiety/' . $survey->id . "-" . $survey->url_slug);
+
         return view('survey.show', [
             'survey' => $survey,
             'questions' => $survey->questions,
+            'linkForUsers' => $linkForUsers,
         ]);
     }
 
@@ -112,7 +117,12 @@ class SurveyController extends Controller
      */
     public function edit(Survey $survey)
     {
-        //
+        return view(
+            'survey.edit',
+            [
+                'survey' => $survey,
+            ]
+        );
     }
 
     /**
@@ -122,9 +132,16 @@ class SurveyController extends Controller
      * @param  \App\Models\Survey  $survey
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Survey $survey)
+    public function update(UpsertSurveyRequest $request, Survey $survey)
     {
-        //
+        $validated = $request->validated();
+        $validated['url_slug'] = Str::slug($validated['url_slug']);
+        $validated['is_published'] = ($validated['is_published'] === 'true');
+
+        $survey->update($validated);
+
+        return redirect()->route('survey.show', $survey->id)
+            ->with('flashMessage', 'Zmodyfikowano ankietę "' . $survey->title . '"');
     }
 
     /**
@@ -135,6 +152,10 @@ class SurveyController extends Controller
      */
     public function destroy(Survey $survey)
     {
-        //
+        $surveyTitle = $survey->title;
+        $survey->delete();
+
+        return redirect()->route('survey.index')
+            ->with('flashMessage', 'Usunięto ankietę "' . $surveyTitle . '"');
     }
 }

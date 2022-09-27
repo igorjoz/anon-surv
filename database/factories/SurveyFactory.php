@@ -24,6 +24,7 @@ class SurveyFactory extends Factory
             'title' => $title,
             'description' => fake()->sentence(),
             'url_slug' => $urlSlug,
+            'is_published' => true,
         ];
     }
 }

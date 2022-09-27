@@ -24,9 +24,10 @@ class UpsertSurveyRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:1023',
-            'url_slug' => 'required|max:1023',
+            'title' => 'required|max:511',
+            'url_slug' => 'required|max:511',
             'description' => 'required|max:8191',
+            'is_published' => 'required',
         ];
     }
 }
