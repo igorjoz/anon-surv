@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\CompletedSurveyController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\UserController;
-use App\Models\CompletedSurvey;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -44,7 +44,13 @@ Route::middleware(['auth'])->group(function () {
         'except' => ['show']
     ]);
 
-    Route::resource('completed-survey', CompletedSurvey::class, [
-        'only' => ['index', 'show', 'delete']
+    Route::resource('completed_survey', CompletedSurveyController::class, [
+        // 'only' => ['index', 'create', 'store', 'show', 'delete']
     ]);
+
+    Route::get('ankiety/{survey}-{survey_slug}', [CompletedSurveyController::class, 'create'])
+        ->name('completed_survey.create');
+
+    Route::post('ankiety/{survey}', [CompletedSurveyController::class, 'store'])
+        ->name('completed_survey.create');
 });

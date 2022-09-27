@@ -51872,6 +51872,15 @@ html {
 .panel__important-link {
   font-size: 1.8rem;
 }
+.panel__ordered-list > li::marker {
+  font-weight: bold;
+}
+.panel__list-item {
+  font-size: 1.4rem;
+}
+.panel__question-type {
+  font-weight: bold;
+}
 
 .crud__info-section-wrapper {
   display: flex;
