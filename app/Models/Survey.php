@@ -32,7 +32,7 @@ class Survey extends Model
     ];
 
     /**
-     * Get the user who created the survey.
+     * Get the User who created the Survey.
      */
     public function user()
     {
@@ -40,10 +40,18 @@ class Survey extends Model
     }
 
     /**
-     * Get the questions belonging to the survey.
+     * Get the Questions belonging to the Survey.
      */
     public function questions()
     {
         return $this->hasMany(Question::class);
+    }
+
+    /**
+     * Get the CompletedSurveys belonging to the Survey.
+     */
+    public function completedSurveys()
+    {
+        return $this->hasMany(CompletedSurvey::class);
     }
 }

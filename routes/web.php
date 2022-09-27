@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\UserController;
+use App\Models\CompletedSurvey;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -41,5 +42,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('question', QuestionController::class, [
         'except' => ['show']
+    ]);
+
+    Route::resource('completed-survey', CompletedSurvey::class, [
+        'only' => ['index', 'show', 'delete']
     ]);
 });
