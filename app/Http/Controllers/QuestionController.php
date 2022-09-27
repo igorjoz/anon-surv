@@ -1,0 +1,106 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\UpsertQuestionRequest;
+use App\Models\Question;
+use App\Models\Survey;
+use Illuminate\Http\Request;
+
+class QuestionController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $surveyId = request()->query()['surveyId'];
+        $survey = Survey::findOrFail($surveyId);
+
+        return view('question.create', [
+            'survey' => $survey
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(UpsertQuestionRequest $request)
+    {
+        $surveyId = $request->survey_id;
+        $validated = $request->validated();
+
+        if ($request->question_type == 'open') {
+            $validated['is_open_question'] = true;
+        } else {
+            $validated['is_yes-no_question'] = true;
+        }
+        $validated['survey_id'] = $request->survey_id;
+
+        $question = Question::create($validated);
+
+        return view('survey.show', [
+            'surveyId' => $surveyId
+        ])->with('flashMessage', 'Stworzono pytanie "' . $question->title . '"');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Question  $question
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Question $question)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Question  $question
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Question $question)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Question  $question
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Question $question)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Question  $question
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Question $question)
+    {
+        //
+    }
+}
