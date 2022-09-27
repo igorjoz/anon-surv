@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -34,9 +35,9 @@ Route::middleware(['auth'])->group(function () {
     Route::put('edytuj-konto', [UserController::class, 'updateAccount'])
         ->name('user.update_account');
 
-    Route::resource('survey', SurveyController::class, [
-        // 'only' => ['index', 'show']
-    ]);
+    Route::resource('survey', SurveyController::class);
     Route::get('wyswietl-ankiety', [SurveyController::class, 'indexUserSurveys'])
         ->name('survey.index_user_surveys');
+
+    Route::resource('question', QuestionController::class);
 });
