@@ -79,7 +79,13 @@
                             </form>
 
                             <a href="{{ route('survey.show', $survey->id) }}">
-                            Podgląd statystyk pytania
+                                Podgląd ankiety i pytań, statystyki
+                            </a>
+
+                            <br>
+
+                            <a href="{{ route('question.create', ['surveyId' => $survey->id]) }}">
+                                Dodaj pytanie
                             </a>
                         </div>
                     </td>

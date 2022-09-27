@@ -39,5 +39,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('wyswietl-ankiety', [SurveyController::class, 'indexUserSurveys'])
         ->name('survey.index_user_surveys');
 
-    Route::resource('question', QuestionController::class);
+    Route::resource('question', QuestionController::class, [
+        'except' => ['show']
+    ]);
 });
