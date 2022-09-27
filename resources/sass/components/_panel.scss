@@ -44,4 +44,16 @@
     &__important-link {
         font-size: 1.8rem;
     }
+
+    &__ordered-list>li::marker {
+        font-weight: bold;
+    }
+
+    &__list-item {
+        font-size: 1.4rem;
+    }
+
+    &__question-type {
+        font-weight: bold;
+    }
 }

@@ -14,6 +14,7 @@ class Question extends Model
         'is_open_question',
         'is_yes-no_question',
         'survey_id',
+        'order',
     ];
 
     public function survey()

@@ -21,6 +21,8 @@ return new class extends Migration
             $table->boolean('is_open_question')->default(true);
             $table->boolean('is_yes_no_question')->default(false);
 
+            $table->integer('positon')->nullable();
+
             // * relation with Survey model
             $table->foreignId('survey_id');
             $table->foreign('survey_id')->references('id')->on('surveys')->onDelete('cascade');

@@ -100,12 +100,9 @@ class SurveyController extends Controller
      */
     public function show(Survey $survey)
     {
-        $linkForUsers = URL::to('/ankiety/' . $survey->id . "-" . $survey->url_slug);
-
         return view('survey.show', [
             'survey' => $survey,
             'questions' => $survey->questions,
-            'linkForUsers' => $linkForUsers,
         ]);
     }
 

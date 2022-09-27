@@ -30,8 +30,8 @@
 
         <h2>
             Link do udostępnienia ankiety: 
-            <a href="{{ $linkForUsers }}">
-                {{ $linkForUsers }}
+            <a href="{{ URL::to('/ankiety/' . $survey->id . "-" . $survey->url_slug) }}">
+                {{ URL::to('/ankiety/' . $survey->id . "-" . $survey->url_slug) }}
             </a>
         </h2>
 
@@ -45,15 +45,17 @@
         
         @if (count($questions))
             <h2>Lista pytań (otwarte lub zamknięte typu tak/nie)</h2>
-            <ol>
+            <ol class="panel__ordered-list">
                 @foreach($questions as $question)
-                    <li>
+                    <li class="panel__list-item">
                         {{ $question->title }}
-                        @if ($question->is_open_question)
-                            [otwarte]
-                        @else
-                            [tak/nie]
-                        @endif
+                        <span class="panel__question-type">
+                            @if ($question->is_open_question)
+                                (otwarte)
+                            @else
+                                (tak/nie)
+                            @endif
+                        </span>
                     </li>
                 @endforeach
             </ol>
@@ -62,9 +64,9 @@
         @endif
 
         @if (count($questions))
-            <a href="{{ route('question.create') }}" class="panel__important-link">Dodaj kolejne pytanie</a>
+            <a href="{{ route('question.create', ['surveyId' => $survey->id]) }}" class="panel__important-link">Dodaj kolejne pytanie</a>
         @else
-            <a href="{{ route('question.create') }}" class="panel__important-link">Dodaj pytania</a>
+            <a href="{{ route('question.create', ['surveyId' => $survey->id]) }}" class="panel__important-link">Dodaj pytania</a>
         @endif
         
         <a href="{{ route('home.index') }}" class="panel__important-link">Przejdź do panelu</a>
