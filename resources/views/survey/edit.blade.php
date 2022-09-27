@@ -4,11 +4,11 @@
     <div class="container-fluid panel__text-container">
 
         <h1 class="text-black panel__welcome-header">
-            Tworzenie nowej ankiety
+            Edycja ankiety "{{ $survey->title }}" o id: {{ $survey->id }}
         </h1>
 
-        <form method="POST" enctype="multipart/form-data" action="{{ route('survey.store') }}" class="crud__form">
-            @method('POST')
+        <form method="POST" enctype="multipart/form-data" action="{{ route('survey.update', $survey->id) }}" class="crud__form">
+            @method('PUT')
             @csrf
 
             @errorBox
@@ -19,7 +19,7 @@
                     Tytuł ankiety
                 </label>
             
-                <input type="text" name="title" id="title" value="{{ old('title') }}"
+                <input type="text" name="title" id="title" value="{{ old('title', $survey->title) }}"
                 autocomplete="off" class="form-control crud__input @error('title') is-invalid crud__input--invalid @enderror"
                 required>
             
@@ -35,7 +35,7 @@
                     URL slug
                 </label>
             
-                <input type="text" name="url_slug" id="url_slug" value="{{ old('url_slug') }}"
+                <input type="text" name="url_slug" id="url_slug" value="{{ old('url_slug', $survey->url_slug) }}"
                 autocomplete="off" class="form-control crud__input @error('url_slug') is-invalid crud__input--invalid @enderror"
                 required>
             
@@ -53,7 +53,7 @@
               
                 <textarea name="description" id="description" rows="3"
                   class="form-control crud__text-area @error('description') is-invalid crud__text-area--invalid @enderror"
-                  required>{{ old('description') }}</textarea>
+                  required>{{ old('description', $survey->description) }}</textarea>
               
                 @error('description')
                 <span class="invalid-feedback crud__error">
@@ -70,7 +70,7 @@
                 </p>
               
                 <div class="crud__radio-option-wrapper">
-                  <input type="radio" id="is_published-yes" name="is_published" value="true" checked
+                  <input type="radio" id="is_published-yes" name="is_published" value="true" {{ $survey->is_published ? "checked" : "" }}
                     class="form-check-input crud__radio-input @error('is_published-yes') is-invalid @enderror">
               
                   <label for="is_published-yes" class="form-check-label crud__label crud__label--radio">
@@ -79,7 +79,7 @@
                 </div>
               
                 <div class="crud__radio-option-wrapper">
-                  <input type="radio" id="is_published-no" name="is_published" value="false"
+                  <input type="radio" id="is_published-no" name="is_published" value="false" {{ $survey->is_published ? "" : "checked" }}
                     class="form-check-input crud__radio-input @error('is_published-no') is-invalid @enderror">
               
                   <label for="is_published-no" class="form-check-label crud__label crud__label--radio">
@@ -95,7 +95,7 @@
               </div>
             
             <button type="submit" class="button button__submit button__submit--create">
-                Stwórz nową ankietę
+                Edytuj ankietę
             </button>
         </form>
 
