@@ -42,7 +42,7 @@ class QuestionController extends Controller
      */
     public function store(UpsertQuestionRequest $request)
     {
-        $surveyId = $request->survey_id;
+        $survey = Survey::findOrFail($request->survey_id);
         $validated = $request->validated();
 
         if ($request->question_type == 'open') {
@@ -50,24 +50,14 @@ class QuestionController extends Controller
         } else {
             $validated['is_yes-no_question'] = true;
         }
-        $validated['survey_id'] = $request->survey_id;
+        $validated['survey_id'] = $survey->id;
 
         $question = Question::create($validated);
 
         return view('survey.show', [
-            'surveyId' => $surveyId
+            'survey' => $survey,
+            'questions' => $survey->questions,
         ])->with('flashMessage', 'Stworzono pytanie "' . $question->title . '"');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Question  $question
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Question $question)
-    {
-        //
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Survey;
 use App\Http\Requests\UpsertSurveyRequest;
+use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -97,7 +98,10 @@ class SurveyController extends Controller
      */
     public function show(Survey $survey)
     {
-        //
+        return view('survey.show', [
+            'survey' => $survey,
+            'questions' => $survey->questions,
+        ]);
     }
 
     /**
