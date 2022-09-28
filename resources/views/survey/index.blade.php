@@ -19,9 +19,11 @@
                 <tr>
                     <th scope="col" class="table__header">@sortablelink('id', 'ID')</th>
                     <th scope="col" class="table__header">@sortablelink('title', 'Tytuł')</th>
-                    <th scope="col" class="table__header">URL slug</th>
-                    <th scope="col" class="table__header">@sortablelink('title', 'Opis')</th>
+                    <th scope="col" class="table__header">Link do ankiety</th>
+                    <th scope="col" class="table__header">@sortablelink('description', 'Opis')</th>
                     <th scope="col" class="table__header">@sortablelink('is_published', 'Czy opublikowana')</th>
+                    <th scope="col" class="table__header">Ilość pytań</th>
+                    <th scope="col" class="table__header">Ilość odesłanych ankiet</th>
                     <th scope="col" class="table__header">@sortablelink('created_at', 'Data stworzenia')</th>
                     <th scope="col" class="table__header">Akcje</th>
                 </tr>
@@ -34,6 +36,7 @@
                 @endif
 
                 @forelse ($surveys as $survey)
+                @if ($survey->is_published)
                 <tr>
                     <th scope="row" class="table__cell">
                         {{ $survey->id }}
@@ -54,36 +57,32 @@
                     <td class="table__cell table__cell--important">
                         {{ $survey->description }}
                     </td>
+
+                    <td class="table__cell">
+                        {{ $survey->is_published ? "tak" : "nie" }}
+                    </td>
+
+                    <td class="table__cell">
+                        {{ $survey->questions->count() }}
+                    </td>
+
+                    <td class="table__cell">
+                        {{ $survey->completedSurveys->count() }}
+                    </td>
     
                     <td class="table__cell">
                         {{ $survey->created_at->format('Y-m-d') }}
                     </td>
-
-                    <td class="table__cell">
-                        {{ $survey->is_published }}
-                    </td>
     
                     <td class="table__cell">
                         <div class="table__actions-wrapper">
-                            <a href="{{ route('survey.edit', $survey->id) }}">
-                            Edytuj
-                            </a>
-
-                            <form method="post" action="{{ route('survey.destroy', $survey->id) }}">
-                                @method('DELETE')
-                                @csrf
-                                
-                                <button class="button button__submit button__submit--delete button__submit--small">
-                                    Usuń
-                                </button>
-                            </form>
-
                             <a href="{{ route('survey.show', $survey->id) }}">
-                            Podgląd statystyk pytania
+                                Podgląd ankiety i pytań, statystyki
                             </a>
                         </div>
                     </td>
                 </tr>
+                @endif
                 @empty
                 @endforelse
             </tbody>

@@ -32,16 +32,16 @@
             </a>
         </h2>
 
+        <h2>
+            <a href="{{ route('survey.index') }}">
+                Wyświetl listę ankiet wszystkich użytkowników
+            </a>
+        </h2>
+        
         @if (Auth::user()->hasRole('admin'))
         <h2>
             <a href="{{ route('user.index') }}">
                 Wyświetl listę użytkowników serwisu
-            </a>
-        </h2>
-
-        <h2>
-            <a href="{{ route('survey.index') }}">
-                Wyświetl listę ankiet wszystkich użytkowników
             </a>
         </h2>
         @endif
