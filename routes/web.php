@@ -41,11 +41,11 @@ Route::middleware(['auth'])->group(function () {
         ->name('survey.index_user_surveys');
 
     Route::resource('question', QuestionController::class, [
-        'except' => ['show']
+        'except' => ['index', 'show']
     ]);
 
     Route::resource('completed_survey', CompletedSurveyController::class, [
-        // 'only' => ['index', 'create', 'store', 'show', 'delete']
+        'except' => ['delete']
     ]);
 
     Route::get('ankiety/{survey}-{survey_slug}', [CompletedSurveyController::class, 'create'])

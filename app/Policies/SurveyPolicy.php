@@ -2,72 +2,71 @@
 
 namespace App\Policies;
 
-use App\Models\Question;
 use App\Models\Survey;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class QuestionPolicy
+class SurveyPolicy
 {
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can create models.
+     * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Question  $question
+     * @param  \App\Models\Survey  $survey
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user, Question $question)
+    public function view(User $user, Survey $survey)
     {
-        return $user->id == $question->survey->user_id;
+        return $user->id == $survey->user_id;
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Question  $question
+     * @param  \App\Models\Survey  $survey
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Question $question)
+    public function update(User $user, Survey $survey)
     {
-        return $user->id == $question->survey->user_id;
+        return $user->id == $survey->user_id;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Question  $question
+     * @param  \App\Models\Survey  $survey
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Question $question)
+    public function delete(User $user, Survey $survey)
     {
-        return $user->id == $question->survey->user_id;
+        return $user->id == $survey->user_id;
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Question  $question
+     * @param  \App\Models\Survey  $survey
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Question $question)
+    public function restore(User $user, Survey $survey)
     {
-        return $user->id == $question->survey->user_id;
+        return $user->id == $survey->user_id;
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Question  $question
+     * @param  \App\Models\Survey  $survey
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Question $question)
+    public function forceDelete(User $user, Survey $survey)
     {
-        return $user->id == $question->survey->user_id;
+        return $user->id == $survey->user_id;
     }
 }
