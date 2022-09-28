@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCompletedSurveyRequest;
 use App\Models\Answer;
 use App\Models\CompletedSurvey;
 use App\Models\Question;
@@ -24,6 +25,9 @@ class CompletedSurveyController extends Controller
     public function create($id, $slug)
     {
         $survey = Survey::findOrFail($id);
+        // dd($survey->is_published);
+
+        $this->authorize('createCompletedSurvey', $survey);
 
         return view('completed-survey.create', [
             'survey' => $survey
@@ -36,11 +40,14 @@ class CompletedSurveyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCompletedSurveyRequest $request)
     {
         $userId = Auth::user()->id;
         $survey = Survey::findOrFail($request->survey_id);
         $questions = $survey->questions;
+
+        $this->authorize('storeCompletedSurvey', $survey);
+
         $validated = $request->validate([
             'survey_id' => 'required',
         ]);
@@ -82,6 +89,6 @@ class CompletedSurveyController extends Controller
      */
     public function destroy(CompletedSurvey $completedSurvey)
     {
-        //
+        $this->authorize('destroy', $completedSurvey);
     }
 }

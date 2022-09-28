@@ -10,6 +10,16 @@ class SurveyPolicy
 {
     use HandlesAuthorization;
 
+    public function createCompletedSurvey(User $user, Survey $survey)
+    {
+        return $survey->is_published;
+    }
+
+    public function storeCompletedSurvey(User $user, Survey $survey)
+    {
+        return $survey->is_published;
+    }
+
     /**
      * Determine whether the user can view the model.
      *

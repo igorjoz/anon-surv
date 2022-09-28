@@ -32,6 +32,8 @@ class QuestionController extends Controller
      */
     public function store(UpsertQuestionRequest $request)
     {
+        // $this->authorize('store', $question);
+
         $survey = Survey::findOrFail($request->survey_id);
         $validated = $request->validated();
 

@@ -7,6 +7,7 @@ namespace App\Providers;
 use App\Models\CompletedSurvey;
 use App\Models\Question;
 use App\Models\Survey;
+use App\Policies\CompletedSurveyPolicy;
 use App\Policies\QuestionPolicy;
 use App\Policies\SurveyPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -21,7 +22,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         Survey::class => SurveyPolicy::class,
         Question::class => QuestionPolicy::class,
-        CompletedSurvey::class => CompletedSurvey::class,
+        CompletedSurvey::class => CompletedSurveyPolicy::class,
     ];
 
     /**

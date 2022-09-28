@@ -135,6 +135,8 @@ class SurveyController extends Controller
      */
     public function update(UpsertSurveyRequest $request, Survey $survey)
     {
+        $this->authorize('update', $survey);
+
         $validated = $request->validated();
         $validated['url_slug'] = Str::slug($validated['url_slug']);
         $validated['is_published'] = ($validated['is_published'] === 'true');
@@ -153,6 +155,8 @@ class SurveyController extends Controller
      */
     public function destroy(Survey $survey)
     {
+        $this->authorize('delete', $survey);
+
         $surveyTitle = $survey->title;
         $survey->delete();
 
